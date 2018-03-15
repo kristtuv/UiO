@@ -1,0 +1,519 @@
+\documentclass[a4paper, 12pt]{article}
+%\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp, color, amsmath, amssymb, tikz, subfig, float, mathrsfs}
+\usepackage{xcolor}
+\usepackage{amsfonts}
+\usepackage{mhchem}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{ragged2e}
+\usepackage{amsmath}
+\usepackage[export]{adjustbox}
+\usepackage[]{esint}
+\usepackage{hyperref}
+\usepackage[skins,theorems]{tcolorbox}
+\usepackage{cite}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{subfig}% http://ctan.org/pkg/subfig
+\usepackage{hyperref}
+\usepackage{setspace}
+\newsubfloat{figure}
+%Tikzcommands
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+
+
+
+\tcbset{highlight math style={enhanced,
+  colframe=red,colback=white,arc=10pt,boxrule=0.5pt, hbox}}
+
+
+
+\linespread{1.5}
+\begin{document}
+
+
+
+\author{Kristian Tuv}
+\title{FYS3710}
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{The action potential}
+Characterised bu a sharp increase in the membrane potential (depolarisation of the membrane) followed by a less hsarp decrease towards the resting potential (replarisation. This may be followed by a afterhyperpolarisation phase in which the membrane falls below the resting potenstial before recovering gradually to the resting potential.\\
+\\
+The main difference between the propagation of action potentials and passive propagtaion of signals is that action potentials are regenerative, so their magnitude does not decay during propagation\\
+\\
+1) ecperiments are carried out to determine the kinetics of a paricular ionchannel\\
+2)Create model by fitting equations to results\\
+3)Solving the equations and simulate action potentials and other behaviors.\\
+
+Capacitive current\\
+$$I_c = C_m \frac{dV}{dt}$$
+$I_{Na}$ is sodium current, $I_K$ is potassium current, $I_L$ is the leak current.
+$$I = I_c + I_i$$
+The magnitude of each type of ionic current is calculated by
+$I_x = g_{x}(V - E_x)$, $(V - E_x)$ is called the driving force $g_x$ is the coductance for ion x.\\
+
+
+
+\section{Models of active ion channels}
+In chapter 3 we looked at the sodium and potassium voltage-gated ion channels in the squid giant axon. There are many other types of active channels and in this chapter we will look at some methods for modelling the kinetics of voltage-gated and ligand-gated ion channels.\\
+\\
+
+\subsection{Ion channel structure and function}
+Each ion channel is constructed from one or more protein subunits. Those that form the pore within the membrane are callend principal sub units.\\
+\\
+Picture: Scondary structure of one subunit of a voltage-gated potassium channel. S1 - S6 is polypeptide chains arranged in $\alpha$ - helixes (peptides are amino acid monomers linked by peptide bonds). S1 - S4 is voltage-sensitive domain, S5-S6 is the linining of the pore. Hodgkin and Huxley proposed a voltage-sensing mechanism consisting of movement of charged paricles within the membrane. This has been confermed in the S4 segment of the voltage-gated potassium channel VSD. Positive charges(gating charges) in the S4 segment experience an electric force due to the membrane potential. The movement of these gating charges lead to other segments in the channel moving.\\
+\\
+
+There may be one pricipal subunit (e.g Na+ and Ca2+ channels), or more than one (e.g. in voltage-gated K+ channels). \\
+\\ More than one principal subunit: Multimers\\
+ - Identical: Homomers\\
+ - Not identical: Hetromers\\
+ \\
+ Ion channels may  also have auxiliary subunits attached to the principal subunits. These subunits may be in the membrane or in the cytoplasm and can change the function of the primary subunits. e.g from inactivating to non inactivating.\\
+ Q: How is the structure of one protein subunit-channel?\\
+ Q: How is the auxiliary subunit attached? And what is the point of it?\\
+ \\
+\subsection{Ion channel nomenclature}
+The genes of several channels have been sequenced and each chennl is named according to the scheme used for the organism in which it occurs. The prefix of the gene gives some information about the type of channel to which it refers; eg. genes beginning with KCN are for potassium channels.\\
+The IUPHAR naming scheme is commenly used by biophysisists, where the name of the channel begins with the chemical symbol of the pricipal permeating ion and is followed by a subscript describing the principal regulator or classifier of the channel. E.g $Ca_v$. We can also add numbers at the end e.g $K_v 3.1$ where the first number represent the gene subfamily and the second the specific channel isoform.\\
+These scheme has a functional relevance.
+
+\subsection{Experimental techniques}
+\subsubsection{Single channel recordings}
+Patch clamp technique: A glass electrode with a tip of less than 5 microm in diameter has been placed on the surface of a cell and suck a small part of the cell into the pipette. The rim of the pipette form a very high resistance seal, forcing most of the current to flow through the pipette. This gives much less noisy recordings because the outside of the patch we are measuring are practically isolated. With this technique they are able to measure the opening and closing of a single channel. The opening and closing of a single channel appears to be random, but we can see order in the statistics. 
+\subsubsection{Channel isolation by blockers}
+A way of isolating different currents is by using channel blockers. E.g we can use tetrodotoxin from blowfish to block tha Na+ channels involved in generating action potentials.
+
+ \subsubsection{Channel isolation by mRNA transfection}
+ Inserting cDNA or mRNA of a protein in a cell which does not normally express that protein. This can form new types of channels in the cell? And we want for some reason to study the channels in the new environment?
+ 
+ \subsubsection{Gating current}
+ The movement of gating charges in the protein subunit is called the gating current or $I_g$. These currents tend to be much smaller than the ionic currents flowing through the membrane, so in order to measure $I_g$ we need to reduce the ionic current, which can be done by replacing permeant ions with impermeant ones or by using channel blockers. The gatig current is outward. Gating currents are a useful tool for the develpment of kinetic models of channel activation.
+ 
+ \subsection{Modelling ensmbles of coltage-gated ion channels}
+ \subsubsection{Gating particle models}
+A type: (What is this?) Used when gene combination not known? Gives rise to action potentials that are delayed compared to the pure HH-model. This is because the A-type potassium channel is open as the membrane potential increases towards the spiking threshold, slowing the rise of the membrane potential. Eventually the A-type current inactivates, and the cell can spike. $I_A$
+\subsubsection{Thermodynamic models}
+In thermodynamic models the rate coefficients are given by functions derived from the transition state theory of chemical reactions (What is this?)\\
+For a gating particle represented by a gating variable x, the steady state  activation is given by the sigmiod curve:
+$$x_{\infty} = \frac{1}{1 + exp(-(V - V_{1/2})/\sigma}$$ where $V_{1/2}$ is the half activation voltage and $\sigma$ is the inverse slope. The correspinding time constant is:
+$$\tau_{x} = \frac{1}{\alpha ' (V) + \beta ' (V)} + \tau_{0}$$ where $\tau_{0} $ is a rate-limiting factor 
+
+\section{Exam questions}
+\subsection{Electrical properties of neurons}
+\begin{enumerate}
+\item What is the neuronal membrane made of \\
+The bulk of the membrane is composed of a 5nm thick lipid bilayer; Two layers of lipids which have their hydrophilic ends pointed outwards and their hydrophobic ends  pointed inwards.
+\item How thick is the neuronal membrane? \\
+About 5 nm
+\item What is meant by the resting membrane potential? \\
+The weighted average of the equilibrium potential of all the ions. $K^+$ higher concentration inside and diffuses easily through channels. The more K+ that goes outside membrane, the more negative the inside becomes, and the electrical potential increases untill it is big enough to counter the diffusion. Na+ has both consentration gradient and electrial gradient going inwards, but the channels are not as eager to let them through
+\item How big is typically the resting membrane potential? \\
+Around -60mV
+\item What are the key ions setting up the neuronal membrane potentia land mediating electrical signals? \\
+$Na^+, Ca^{2+}, K^+, Cl^-, OA^-$
+\item What is an ion channel? \\
+Ion chennels are pores in the lipid bilayer, made of proteins, which can allow ceratin ions to flow through the membrane
+The membrane seperates the extracellular fluid from the cytoplasma. To let certain ions through the membrane have several ion channels, which can be leak channels; always open, but may only accept certain types of ions. They can be pumps, which f.eks pump out 3 Na+ ions in exchange for 2 K+ ions with the use of one ATP molecule.
+We also have the active channels which are gated either by voltage or by ligands. Neurotransmitter reseptors may be ligand gated. The channels in the axons is mostly voltage gated, which help create the action potential.
+
+
+\item What are the two main categories of ion channels? \\
+Active and passive channels
+\item What is meant by an active channel? \\
+An active channel can exist in open or closed states, depending on e.g membrane potential, ionic concentrations or the presence of bound ligans, such as neurotransitters.
+\item What is meant by a passive channel? \\
+A passive channel does not change their permeability in responses to external influences
+\item What is an ion pump? \\
+An ion pump is an ion channel that pumps the ions in the "oposite direction" of where it want to go.
+
+\item Which ion pump is particularly important for setting up the resting membrane potential? \\
+When Na+ and K+ reaches equilibrium, there is no net flow of charge across the membrane, but there is net flow of Na+ and K+ and over time this would cause the consentrationgradient to run down.
+\item What is an electrogenic pump? \\
+The Na+K+ pump is electrogenic, beecause it changes the net charge in the cell by pumping out more positive particles than it pumps in. It seems like if the pump uses ATP this is a good indication of it being electrogenic.
+\item Describe the Nernst-Planck equation. What does it tell? \\
+This equation is a general description of how charged ions move in solution in electric fields. (Where they are influenced by electrical drift and diffusion)
+\item What is the Nernst potential? \\
+This is the equilibrium potential for one permeable ion.
+$$E_X = \frac{RT}{z_X F}ln \frac{[X]_{out}}{[X]_{in}}$$
+where $[X]_{out}$ and $[X]_{in}$ is ther intracellular and extracellular cocentrations of X
+\item Derive the Nernst potential from the Nernst-Planck equation. \\
+Consentration gradient:
+$$J_{X, diff} = -D_X \frac{d[X]}{dx}$$
+Where $D_X$ is the diffusion coefficient of molecule X\\
+\\
+Electrical drift:
+$$J_{X, drift} = - \frac{D_X F}{RT} z_X [X] \frac{dV}{dx}$$
+Where $z_X$ is the ion's signed valency (the charge of the ion measured as a mulitple of the elementary charge). R is the gas constant, T is the temperature in kelvins and F is faradys constant.\\
+\\
+Nerst-Planck:
+$$J_X = -D_X \frac{d[X]}{dx} - \frac{D_X F}{RT} z_X [X] \frac{dV}{dx}$$
+The Nernst equation is derived by assuming diffusion in one dimesion along a line that starts at x = 0 and ends at x = X. For there to be no flow of current (which is what the Nernst equation describes) the Nernst planck equation must be zero.\\
+$$\frac{1}{[X]}\frac{d[X]}{dx} = - \frac{z_X F}{RT}\frac{dV}{dx}$$
+$$\int_{E_m}^{0}-dV = \int_{[X]_{in}}^{[X]_{out}}\frac{RT}{z_X F[X]}$$
+$$E_m = \frac{RT}{z_X F}ln \frac{[X]_{out}}{[X]_{in}}$$
+\item What is meant by the principle of electroneutrality? \\
+each atom in a stable substance has a charge close to zero
+\item Is a large deviation from electroneutrality needed to set up the resting membrane potential? \\
+From direct measurements the specific membrane capacitance is often set to be $1 \mu F cm^{-2} = 10^{-8} \mu F \mu m^{-2}$\\
+If we consider the squid giant axion with diameter $500 \mu m$ and a section $1 \mu m$ long, with resting potential -70mV, we have
+Area: $500 \times 1 \times \pi \mu m^2$\\
+C: $500 \pi \times 10^{-8}\mu F$\\
+Charge: $q = CV = 500 \pi \times 10^{-8}\mu F * 70 * 10^{-3} V = 35000\pi \times 10^{-11} \mu C$\\
+Faradys constant: $F = 96485.3365 C/mol$ is the electrical charge of one mol of elektrons\\
+Dividing by faradays: ...\\
+volume: $\pi (500/2)^2 \mu m^3$ change to liters and multiply by 400 mM per liter. We get that there is almost 10 million times as many ions in the cytoplasm than on the membrane, and the effect of charging the membrane (releasing 1 part in 10 million, does not really matter. So we can assume electroneutrality. This ofcourse is different for a very small neuron.
+
+\item What does the Goldman-Hodgkin-Katz (GHK) model tell you? \\
+GHK predict the current $I_X$ mediated by a single ionic species X flowing across a membrane when the membrane potential is V.
+\item What approximations are assumed in the GHK model? \\
+\begin{itemize}
+\item No current flows when the voltage is equal to the equilibrium potential. Electrical drift and diffusion is equal
+\item the current changes direction at the equilibrium potential.
+\item The idividual ions do not obey ohm's law since the current is not proportional to the voltage.
+\item The potassium characteristic favours outward rectifying currents and the calcuim characteristic favours inward rectifying currents.
+\end{itemize}
+\newpage
+\item The GHK model can account for inward and outward rectification of ion currents. What is meant by this? \\
+Rectification is the property of allowing current to flow more freely in one direction than another. Potassiu favours outward current, and is described as outward rectifying. Calcium favours inward currents and is described as inward rectifying.
+\item In modeling one often assumes a quasi-ohmic relation between membrane potential and ion current. What is meant by quasi-ohmic? \\
+Making a linear approximation to th GHK equations is similar to assuming ohms law. Since the straight line does not necessearily pass through the origin, the correspondence is not exact and thid form om linear I-V relation is called quasi-ohmic.
+\item What is the capacitive current? \\
+Capacitive current is the description of how current affects the voltage across the membrane
+
+\item Derive/show a mathematical expression for it. \\
+Capacitance is defined as $q = CV$. The current flow through the membrane si $I = \frac{dq}{dt}$\\
+We can differentiate:
+$$I = \frac{dq}{dt} = C \frac{dV}{dt}$$
+The change in voltage over time, dureing the charaging or discharging of the membrane, is inversley proportional to the capacitance.
+\item Derive a general expression for the reversal potential (Em) for a neuron with several quasi-ohmic ion channels. \\
+????
+\item Derive a differential equation for a simple RC-circuit neuron. \\
+??
+\item Show that the solution for the membrane potential V for this RC-circuit neuron receiving a constant step current at time t = 0 is given by V (t) = A + B(1 - exp(-t/C)). Determine the constants A, B, and C. \\
+??
+\item What is the limiting value of V when $t \rightarrow \infty$ \\
+..
+\item At time te the current is turned off. Show that the solution for the membrane potential V for the RC-circuit neuron receiving after time te is given by V (t) = A' + B' exp(-(t - te)/C')). Determine the constants A', B', and C'. \\
+..
+\item What is the membrane time constant $\tau_m$? \\
+..
+\item What is the input resistance? \\
+Input resistance is defined as the change in the steady state membrane potential divided by the injected current causing it.
+To determine the input resistance, the resting membrane potential is first measured. Then a small amout of current $I_e$ is injected and the membrane potential is allowed to reach a steady state $V_{\infty}$. The input resistance is then given by.
+$$R_{in} = \frac{V_{\infty} - E_m}{I_e}$$
+\end{enumerate}
+
+\subsection{Hodgkin-Huxley model}
+1. Why was Hodgin and Huxley's development of their model of action potential propagation so important?\\
+It was used to calculate the form of the action potentials in the squid giant axon.
+Their work was the starting point for the biophysical understanding of the structures now known as ion channels\\
+\\
+2. Why did they focus on the squid giant axon?\\
+Because it is giant. The large diameter allowed them to insert voltage clamps.
+\\
+3. Outline the scientific approach Hodgkin and Huxley used to develop their model.\\
+\begin{itemize}
+\item Voltage clamp experiments are done to determine the kinetics of a particluar type of channel. Now adays the methods of of recording and isolating curretns through paritclular channel types are more advanced.
+\item Amodel of a channel type is constructed by fitting equations, often of the same mathematical form, to the recordings.
+\item Moedles of axons, dendrites or entire neurons are constructed by incorporating models of individual channel types in the compartmental models. Once the equations for the models are solved, action potentials and other behaviours of the membrane potnetial can be simulated.
+\end{itemize}
+4. What is meant by current clamp?\\
+Voltage clamp: Injects current to hold the membraen potential constant at desired value\\ \\
+Current clamp: injects current to deliberately change the membrane potential, to f.eks trigger an action potential.\\
+\\
+5. What is meant by space clamp?\\
+Electrodes are long, thin wires that short circuit the electrical resistance of the cutoplasm and the extracellular space. This ensures that the potential is uniform over a large region of membrane and that therefor there is no axial current in the region. In this configuration the membrae current is identical to the electrode current, so the membrane current can be measured exactly as the amount of electrode current to be supplied to keep the membrane at the desired value. when the voltage clamp is used to set the membrane potential to a constant value $\frac{dV}{dt} = 0$ which means the voltage clamp current is equal to the ionic current.\\ \\
+6. What ion channel currents were included in the model?\\
+Sodium current, potassium current, and leak current, which is modtly made up of chloride ions. The potassium and Sodium channels are active channels.\\
+\\
+7. Outline the model for the potassium current?\\
+$$I = I_c + I_i = C_m \frac{dV}{dt} + I_i$$
+$$I_i = I_{Na} + I_K + I_L = g_{Na}(V - E_{Na}) + g_{K}(V - E_{K}) + \bar{g}_{L}(V - E_{L})$$
+8. What is a gating particle?\\
+HH-model: The membrane containes gates, which are guraded by a number of  independent gating particles, which controls of the permeable ion can pass or not\\
+\\
+9. How is the dynamics of the gating particles modeled in the Hodgkin-Huxley model?\\
+The movement of a gating particle between its closed(C) and open (O) postitions can be expressed as a reversible chemical reaction:\\
+\ce{C <=>[\alpha_n][\beta_n] O}\\
+The fraction of gating particles in an open state is n, the fraction in closed state is 1 - n\\
+There is a rate law correspondig to the equation above:
+$$\frac{dn}{dt} = \alpha_n (1-n) - \beta_n n$$
+Solving this gives:
+$$n(t) = n_{\infty} (V_1) - (n_{\infty}(V_1) - n_0)exp(-t/\tau_n (V_1))$$
+$$n_{\infty} = \frac{\alpha_n}{\alpha_n + \beta_n}$$
+$$\tau_n = \frac{1}{\alpha_n + \beta_n}$$
+Where $n_{\infty }$ is the limiting probability of a gating particle being open if the membrane potential is steady as t approaches infinity and $\tau_n$ is a time constant
+$$\frac{dn}{dt} = \frac{n_{\infty} - n}{\tau_n}$$
+\\
+10. How were the model parameters describing the potassium current determined?\\
+$$n_{\infty} = \left (\frac{g_{k\infty}}{\bar{g}_k}\right )^{1/4}$$\\
+Finding 
+11. Outline the model for the sodium current?\\
+12. How does the model for the sodium current differ from the model for the potassium current?\\
+13. What is an inactivation variable?\\
+14. What ions carry the leak current?\\
+15. What is an absolute refractory period?\\
+16. What is an relative refractory period?\\
+17. How does the Hodgin-Huxley model account for the refractory period of neurons? \\
+18. How does the ion-channel dynamics typically depend on temperature?\\
+19. What is a Q10 factor?\\
+
+\section{Multicompartmental modelling and cable equation}
+1. What does it mean when a neuron is said to be isopotential?\\
+An area where the membrane potential is effectively constant.\\\\
+
+2. Is ’isopotentiality’ always a good approximation?\\
+Nah, most neurons cannot be considered isopotential throughout, which leads to axial current flowing along the neurites. F.eks during an action potential different part of the axon are at different potnetials.
+
+3. How can non-isopotential neurons be modeled?\\
+Compartment model, cable equation\\
+\\
+4. Describe the principles behind multicompartmental modeling.\\
+Split up the neurite into cylindrical compartments. Area of compartment: $a = \pi d l$. Beacuse the intracellular resistance is much greater than the extracellular resistance, it may be acceptable to consider the extracellular component to be effectibely zero. We then model the extracellular medium as elctrical ground\\
+The axial resistance of a compartment is proportional to length l and inversely proportional to the cylinders cross-section area $\frac{\pi d^2}{4}$\\
+The axial resistivity, also known as the specific axial resistance $R_a$ is $4R_a l /\pi d^2$\\
+
+
+$$I_{c, j}a + I_{i, j} = I_{j}a + I_{e, j}$$
+Injected current is actually current. All the other currents are actually current densities and must be multiplied by the area to become a current.\\
+$$I_{j}a = \frac{V_{j+1} - V_j}{4R_a l/\pi d^2} + \frac{V_{j - 1} - V_j}{4R_a l/\pi d^2}$$
+$R_a $ is a resistivity, not a resistance as it may look like. To get resistance we use $R = \rho L /A$ wher $\rho$ is resistivity and A is the cylinder cross sectional area
+Hva i alle dager skjer med enhetene?
+5. What is meant by killed(open)-end, sealed-end and leaky-end boundary conditions?\\
+Killed end: The end of the neurite has been cut, which means that the emmbrane potential at the end of the neurite is equal to the extracellular potnetial and $V_0 = 0$\\
+Sealed end: Tip of neurite very small, resistance very high. The gradient of the membrane potential along the neurite is propoertional to the axial current. Zero current flowing through the end implies thtat the gradient of the membrane potential at the end is zero: $V_1 = V _{-1}$ from midpoint deffinition of the derivative.\\
+Leaky end: resistance at the end of the cable has a finite absoulte value $R_L$. The boundary condition is derived by equating the axial current, which depends on the spatial gradient of the membrane potential, to the current flowing through the end $(V - E_m )/R_L$\\
+6. Derive the cable equation from the fundamental equation for multicompartmental modeling.\\
+Just make the compartments small. Gives pde
+7. Derive the steady-state solution for a semi-infinite cable with a constant current injected in one end.\\
+??
+8. What is the length constant $\lambda$?\\
+It determines the shape of the exponoential voltage decay along the leth of the cable. It is determined by the specific membrane resitance, the axial resisitivity and the diamter of the cable\\
+\\
+9. What is the input resistance for a semi-infinite cable with a constant current injected in one end?\\
+??
+\section{Synapses}
+1. What is a synapse?\\
+The chemical synapse is a complex signal transduction device that produces a postsynaptic respons when an action potential arrives at the presynaptic terminal
+2. What are the two main types synapses?\\ \\
+Electrical or chemical?\\
+Inhibitorisk og eksitatorisk\\
+\\
+3. Describe some common postsynaptic receptors.\\ 
+ionotropic receptors—are linked directly to ion channels (the Greek tropos means to move in response to a stimulus). These receptors contain two functional domains: an extracellular site that binds neurotransmitters, and a membrane-spanning domain that forms an ion channel (Figure 7.9A). Thus ionotropic receptors combine transmitter-binding and channel functions into a single molecular entity (they are also called ligand-gated ion channels to reflect this concatenation). Such receptors are multimers made up of at least four or five individual protein subunits, each of which contributes to the pore of the ion channel.\\
+\\
+The second family of neurotransmitter receptors are the metabotropic receptors, so called because the eventual movement of ions through a channel depends on one or more metabolic steps. These receptors do not have ion channels as part of their structure; instead, they affect channels by the activation of intermediate molecules called G-proteins (Figure 7.9B).\\
+In neuroscience, synaptic plasticity is the ability of synapses to strengthen or weaken over time, in response to increases or decreases in their activity\\
+
+4. Describe how the electrical response at the postsynaptic side of a chemical synapse can be mod- eled.\\
+ \\
+5. Describe various mathematical functions used to model the postsynaptic conductance following the presynaptic arrival of an action potential.\\ \\
+6. What is meant by synaptic plasticity?\\
+In neuroscience, synaptic plasticity is the ability of synapses to strengthen or weaken over time, in response to increases or decreases in their activity\\ 
+The response of one spike depend on the response of another\\
+7. What is synaptic depression?\\ \\
+8. What is synaptic facilitation?\\ \\
+9. What is long-term potentiation (LTP)?\\ \\
+10. What is spike-timing dependent plasticity?\\ \\
+11. How are electrical synapses modeled?\\
+Ohmic connection \\
+
+\section{Active ion channels}
+
+1. What distinguishes active and passive ion channels?
+Passive ion channels are always open to certain ions, and active channels are only opened by certain changes in the membrane or cellular fluids\\
+\\
+2. What is meant by voltage-gated ion channels?
+Voltage gated ion channels resonds to changes in the membrane potential\\
+\\
+3. What is meant by ligand-gated ion channels?\\
+Ligands are molecules specific for a reseptor. The ligand-gated ion channels have reseptors that respond to the presence of certain ligands.\\
+
+4. Describe the structure of a voltage-gated ion channel.\\
+
+5. Approximately how many voltage-gated ion channel types exist in humans?\\
+143
+6. Describe three nomenclature (naming) schemes for ion channels.\\
+ IUPHAR\\
+ 
+ Gene\\
+ 
+ Ad hoc\\
+ \\
+7. Mention and four experimental techniques for investigating ion channels.\\
+Channel blockers\\
+Patch clamp technique/gigaseal\\
+
+8. Describe the structure of gating-particle models for ion channel currents.\\
+
+\section{Intracellular signaling and calcium}
+1. Why do neuroscientists often model the concentration of calcium (but not so often the concentra- tion of sodium, potassium and chloride)?\\
+Sodium potassium concentration is fairly constant. Ca is not. In addition Ca plays a major roll in a mulititude of intracellular signalling pathways.
+\\
+2. Describe the diffusion equation.\\
+$$\frac{\partial c}{\partial t} = D \left ( \frac{\partial^2 c}{\partial x^2} + \frac{\partial^2 c}{\partial y^2} + \frac{\partial^2 c}{\partial z^2} \right ) = D \bigtriangledown ^2 c$$
+\\
+3. Why is diffusion important for describing ion transport inside neurons (but less so for transport of signals/molecules between different cortical areas)?\\
+\\
+4. Set up a differential equation for the dynamics of calcium concentration and describe various fluxes that in general contributes to this dynamics. Also, briefly describe the mathematical formulas describing the various calcium flux contributions.
+
+\section{Simplified neuron models}
+1. Why is it desirable to make ’simplified’ neuron models?\\
+\begin{itemize}
+\item We wish to explain how a complicated neural model works by stripping it down to its bare essentials. This gives an explanatory model in which the core mechanisms have been exposed and so are easier to understand
+\item We wish to understand the behaviour of a network descriptive model of a neuron that describes the essential function of the nurons in question, an which is fater to simulate thaan compartmental neurons or which allows mathematical analysis of the network.
+\end{itemize}
+
+2. Why does one typically skip the modeling of spike propagation down the axon in network simula-tions?\\
+We generate and receive firing rates rather than spikes times. These models are appropriate for applications in which precise firing times are not very important to the network behavior\\
+
+3. What is a two-compartment model?\\
+A model only using two compartments. F.eks one dendrite compartment and one soma compartment\\
+4. The Morris-Lecar for spike generation model has only two dynamical variable while the Hodgkin-Huxley model gas four. What is the main advantage of being able to study a two-dimensionaldynamic model instead of a four-dimensional one?\\
+It reduces computational time.\\
+Two dynamic variables allows for phase-plane analysis(appendix B.2)\\
+5. What is an integrate-and-fireneuron?\\
+Early HH-model\\
+RC circuit used to model the passive patch of membrane with a spike generation and reset mechanism added. RC circuit gets a switch over resistance, which closes when the membrane potential reaches a specified threshold level.\\
+
+6. What is the equation for the subthreshold membrane dynamics in the integrate-and-fire model?\\
+$C_m \frac{dV}{dt} = -\frac{V - E_m}{R_m} + I$ C is membrane capacitance, R is membrane resistance and I is the total current flowing intot the cell, which would come from an electrode or from synapses.\\
+7. How is spiking, i.e., firing of an action potential, achieved in the model?\\
+When the membrane raches the threshold $\theta$, the neuron fires a spike and the membrane potential V is reset to $E_m$.
+We can solve the equation for subthreshold voltage with small currents and get:
+$$V = E_m + R_m I (1 - exp(-t/\tau_m))$$
+If $R_m I$ is bigger than the threshold $\theta$, the voltage will cross the threjold at some point in time. The memrbane potential then resets to zero and the process repats
+8. Derive an expression for the f-I curve for an integrate-and-fire neuron with an absolute refractoryperiod.\\
+For a given level of current injection starting at time t = 0, at the time $T_s$ a spice occurs, when the membrane potential is equal to $\theta$. Be sub $V - E_m = \theta$ and $t = T_s$ an rearrange.\\
+$\theta = E_m + R_mI(1 - exp(- T_s/\tau_m)) $\\
+ If we ommit the leak current, we do not change the dynamics, the resting potential $E_m$ is set to 0 mV.\\
+ Solve for $T_s$\\
+The interval between consecutive spikes during constant current injection is the sum of the time to spike and the absolute refractory period $T_{interval} = T_s + \tau_r$ and the spike frequency $f(I) = \frac{1}{\tau_r + T_s}$
+9. What is a conductance-based synapse?\\
+We describe a synaptic imput using the conductance\\
+$$g_{syn} = \bar{g}_{syn} exp(-\frac{t - t_s }{ \tau_{syn} }) H( t - t_s)$$
+$$I_{syn}(t) = g_{syn}(t)(V(t) - E_{syn})$$
+Where $E_{syn}$ is the reverasl potnetial for the sunapse under consideration. This can be included in an integrate- and-fire neuron by including the current in the total current.
+10. What is a current-based synapse?\\
+To make the model easier to analyse and faster to simulate we can use the time course of the synaptic current, rather than the conductance.
+$$I_{syn}(t) = \bar{I_{syn}} exp(- \frac{t - t_s}{\tau_{syn}})H(t - t_s)$$
+There is no dependence of the current on the membrane potential. For typical excitatory synapses, current-based synapses provide a reasonable approximation to conductance-based synapses. Implicit is that $\bar{I_{syn}}$ is the product of $\bar{g}_{syn}$ and a constant driving force
+11. Why is a current-based synapse a good approximation for AMPA receptors, but maybe less so forGABA receptors?\\
+$E_{syn}$ for AMPA is $\approx 0$ mV, which means $V - E_{syn}$ is almost constant.\\
+$E_{syn}$ for GABA is typically close to $E_m$ (slightly more hyperpolarized), so not so constant.\\
+12. What is a Poissonian spike train?\\
+The probability of firing an action potential per time unit is constant\\
+Characterized by decaying interspike interval distribution
+13. What is the interspike interval distribution for Poissonian spike train?\\
+?????????????\\
+A decaying exponential function\\
+\\
+14. Does cortical neurons exhibit such interspike interval distributions?\\
+???????\\
+Yes.
+\\
+15. What is meant by balanced excitation and inhibition?\\
+It means the total input from excitatory and inhibitatory synapses are equal. That is, the magnitute of the input times the number of inputs is equal between the two.\\
+\\
+16. What is the Stein model?\\
+Integrate-and-fire neuron receiving infinitely short current pulses ($\delta$-function pulses) with Poisson distribution from a number of excitatory and inhinitory neurons, causing the membrane potential to fluctuate and sometimes cross the threshold.\\	
+17. How can the standard integrate-and-firing neuron be modified to exhibit spike-rate adaptation?\\
+We can att a current with a conductance the depends on the neuronal spiking. Whenever the neuron spikes, the adaptive conductance $g_{adapt}$ is incremented by an amount $\Delta g_{adapt}$ and otherwise it deacys with a time constant of $\tau_{adapt}$:$$\frac{d g_{adapt}}{dt} = - \frac{g_{adapt}}{\tau_{adapt}}$$
+18. What is the quadratic integrate-and-fire model (QIF)?\\
+It replaces the $(V - E_m)/R_m$ term in the integrate-and-fire neuron
+$$C_m \frac{dV}{dt} = -  \frac{(V - E_m)(V_{thresh - V)}}{R_m (V_{thresh} - E_m} + I$$
+19. What is theexponential integrate-and-fire model (EIF)?\\
+$$C_m \frac{dV}{dt} = -\left ( \frac{V - E_m}{R_m} - \frac{\Delta_T}{R_m}\left (\frac{V - V_T}{\Delta_T}\right ) \right ) + I$$
+Where $V_T$ is  a thereshold voltage and $\Delta_T$ is a spike slope factor that determines the sharpness of spike initiation.\\
+It is asymmetrical in comparison to the QIF\\
+\\
+20. How may noise change the dynamics of integrate-and-fire neurons?\\
+The noice allow the neruon to fire even when the mean input I(t) would not be enough to cause a deterministic neuron with the same threshold to fire.
+21. How can noise be added to the integrate-and-fire model?\\
+We can model it by deffusive noise by adding a stochastic term to the membrane equation. We can add $\sigma \Delta W(t)$ to an euler equation, where $\Delta W$ is a random variable drawn from a Gaussian distribution with a mean of zero and a variance of $\Delta t$; $\sigma$ parameterizes the level of noise.\\
+An alternative is to have a noisy threshold.\\
+\\
+22. What is meant by a firing rate?\\
+\begin{itemize}
+\item The average firing rate of a single neuron determines by counting the spikes in a time window (often averaged over many persentations of a stimulus)\\
+\item The population firing rate (averaged over many neuron over one instance in time.
+\end{itemize}
+A firing rate function f(I) tells what steady-state firing rate is obtained with constant input current I\\\\
+23. Explain the difference between the stimulus-averaged firing rate and the population firing rate?\\
+See 22\\
+\\
+24. What is the firing-rate function f(I)?\\
+See 22.\\
+\\
+25. Describe various mathematical functions used to model the firing-rate function?\\
+$f = kl$ for $I > \theta$ 0 else\\
+$f(I) = \frac{\bar{f}}{1 + exp(-k(I - \theta))}$ where $\bar{f}$ is the macimum firing rate, $\theta$ is the threshold and k controls the slopo of th f- I curve. For large valurs of k, the sigmoid curve approximates to a step function.\\
+$f = H(I - \theta)$\\
+The heaviside examle is sometimes reffered to at McCulloch-Pitts neurons.\\
+\\
+26. What is meant by a feed forward network?\\
+The synapic currant in an output neuron is derived from the firing rates of the input neurons wo which it is connected and the appropriate synaptic synaptic conductances; there are no loops which allow feedback.\\
+
+If each input neuron, labelled with the subscript i, fires at a constant rate, the current flowing into an output cell, labelled j, will also be constant: $$I_j = \sum w_{ij}f_i \qquad f_i = f(I_i)$$
+27. What is meant by a recurrent network?\\
+A network similar to the feed forward, but now we also have som feedback creating loops\\
+\\
+28. What is a dynamic firing-rate model?
+If the inputs to the network vary in time\\
+???????????????????????????????????????????????????????????????????
+$$\tau_{syn} \frac{dI_i}{dt} = -I_i + \sum w_{ij}$$
+
+
+1. Mention some experimental techniques that is used to measure cortical activity.\\
+Finne ut mer\\
+2. What is meant by ’physics-type’ multimodal modelling?\\
+Finne ut mer\\
+3. Describe the principles of measuring extracellular potentials in the brain.\\
+LFP inside cortex\\
+ECoG outside cortex\\
+EEG on scalp\\
+Two electrodes and measures potential difference.\\
+\\
+4. What is meant by (i) LFP, (ii) MUA, (iii) ECoG, (iv) EEG?\\
+LFP - Local field potential, low pass filter, measure dendric processing of synaptic input.\\
+MUA - Multi-unit activity, high pass filter, measure of neuronal action potentials\\
+ECoG - Measures from surface of brain\\
+EEG - Measures from the scalp\\
+\\
+5. Describe volume conductor theory and its underlying assumptions.\\
+Visualizes brain tissue as two domains: a continous extracellulra domain and a non continuous intracellular domain\\
+Neuron is two compartments\\
+Densiritten er en source, soma en sink\\
+Beskriver EC med konduktiviteten $\sigma$\\
+\\
+6. Derive an equation for the extracellular potential set up by a point current source.\\
+$$-j = \sigma E$$
+7. Why cannot point-neuron models (alone) be used to compute extracellular potentials?\\
+Then we get zero potential. Just as much current goes in as out.\\
+
+8. What is the simplest neuron model that can be used to compute extracellular potentials?\\
+Two compartment model
+
+9. What is the formula for the extracellular potential set up by a two-compartment neuron model?\\
+$$\phi(r,t) = \frac{1}{4\pi \sigma} \left (\frac{I(t)}{|r - r_1 |} - \frac{I(t)}{|r - r_2 |}\right )$$
+10. Sketch the LFP set up by a two-compartment neuron model receiving a single excitatory synaptic input in (i) the soma compartment og (ii) the dendrite compartment.\\
+
+11. What is the formula for the extracellular potential set up by a general multicompartment neuron model with N compartments?\\
+
+\end{document} 

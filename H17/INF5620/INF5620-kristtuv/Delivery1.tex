@@ -1,0 +1,54 @@
+\documentclass[a4paper, norsk, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel, textcomp, color, amsmath, amssymb, tikz, subfig, float}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage[]{mcode}
+\usepackage{amsmath}
+\usepackage[export]{adjustbox}
+\usepackage[]{esint}
+
+
+
+\begin{document}
+
+
+\author{Kristian Tuv}
+\title{}
+\maketitle
+
+
+
+
+\section*{Problem 1}
+\subsection*{a)}
+$u''(t) + \omega^2 u = f(t), u(0) = I, u'(0) = V, \in (0, T]$\\
+\\
+$\frac{u^{n+1} - 2u^{n} + u^{n-1}}{\Delta t^2} = f^n - \omega^2 u^n$\\
+\\
+$\rightarrow u^{n+1} = f^n \Delta t^2 - \Delta t^2 \omega^2 u^n + 2u^n - u^{n-1}$\\
+\\
+$\frac{u^1 - u^{-1}}{2\Delta t} = V \rightarrow u^{-1} = u^{1} - V2\Delta t$\\
+\\
+$\rightarrow u^1 = \frac{1}{2}(f^0 - \omega^2 u^0) \Delta t^2 + u^0 + V\Delta t $
+
+\subsection*{b)}
+d = I\\
+c = V\\
+$f = \omega^2 (Vt + I)$\\
+$\frac{t^{n+1} - 2t^n + t^{n-1}}{\Delta t^2} = \frac{\Delta t - \Delta t}{\Delta t^2} = 0$\\
+$\frac{d - 2d + d}{\Delta t^2} = 0$\\
+
+\subsection*{e)}
+We approximate the ODE by adding up the straight slopes between the mesh points. With a polynomial of higher degree than the ODE, the slope between the points is no longer constant and we can not fullfill the discrete equations.
+
+
+\section*{Exercise 21}
+\subsection*{c)}
+Pure vertical:\\
+$y'' = -\frac{\beta}{1 - \beta}\left((y - 1) - \beta \frac{y-1}{\sqrt{(y-1)^2}}\right) - \beta$\\
+y does not exceed 1, hence $\frac{y-1}{\sqrt{(y-1)^2}} = -1$\\
+$\rightarrow y'' = - \frac{\beta}{1 - \beta}y$\\
+which has the a solution $y = y_0 cos(\omega t)$ with $\omega = \sqrt{\frac{\beta}{1 - \beta}}$
+\end{document} 

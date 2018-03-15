@@ -1,0 +1,446 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath} % For \mathbb
+\usepackage{amsfonts}
+\usepackage{ amssymb }
+\usepackage{tikz}
+\usetikzlibrary{arrows,calc}
+
+
+
+
+\DeclareMathOperator\arctanh{arctanh}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+ \newcommand{\pfrac}[2]{\frac{\partial #1}{\partial #2}}
+ \newcommand{\plrfrac}[2]{\left(\frac{\partial #1}{\partial #2}\right)}
+ \newcommand{\integrer}{\int\limits_{-\infty}^{\infty}}
+
+ \newcommand{\kroll}[1]{\begin{cases} #1 \end{cases}}
+%\pagestyle{empty}
+
+
+%% Numbered exercises
+\newcounter{excount}[chapter]
+\newenvironment{exercise}[1][]{\addtocounter{excount}{1} \noindent {\bf Question
+    \arabic{excount} \ \ #1}\hspace{2mm}}{\vspace{4mm}}
+
+
+\title{FYS3120 Classical mechanics and electrodynamics\\
+Mid-term exam -- Spring term 2017}
+\author{Candidate {\bf 15103}}
+
+
+
+\begin{document}
+
+\maketitle
+
+
+
+\addtocounter{page}{1}
+
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{exercise}{\bf A (boring) Lagrangian\\}
+%%%%%%%%%%%%%%%%%%%%
+We will begin by considering a free non-relativistic particle (no potential) of mass $m$ moving in three dimensions with no constraints.
+\begin{itemize}
+\item[\bf a)] Pick a sensible coordinate system for this problem and write down the Lagrangian. [1 point]\\
+
+
+
+\underline{Answer:}\\
+For a free particle with no constraits there is no reason for not using our good old cartesian coordinates:
+\begin{equation}
+\left\lbrace x, y, z \right\rbrace
+\end{equation}
+
+There is no potential present, so the Lagrangian just becomes the kinetic energy
+\begin{equation}
+L =K + V =  K = \frac{1}{2}m|\vec{v}|^2 = \frac{1}{2}m(\dot{x}^2 + \dot{z}^2 + \dot{z}^2)
+\end{equation}
+
+
+\item[\bf b)] Find the canonical, or conjugate, momenta for the coordinates and compare to the regular (mechanical) momentum. [1 point]\\
+
+
+
+\underline{Answer:}\\
+The canonical momenta is defined as
+$$p_i  = \frac{\partial L}{\partial \dot{x}_i} \qquad \textit{, i= 1, 2, 3}$$
+\\
+$$p_1 = m\dot{x}, \qquad
+p_2 = m\dot{y} , \qquad
+p_3 = m\dot{z}$$
+\\
+$$\vec{p} = (p_1, p_2, p_3) = m(\dot{x}, \dot{y}, \dot{z}) = m\vec{v}$$
+\\
+So the canonical momenta is the same as the mechanical momenta\\
+
+
+\item[\bf c)] Find the cyclic coordinates. [0.5 point]\\
+
+
+
+\underline{Answer:}\\
+Cyclic coordinates are generalized coordinates of a physical system, that does not appear in the expression for the characteristic equation for the system. We can see in our lagrangian that L does not depend on x, y or z, only their derivatives. So x, y and z are cyclic coordinates.\\
+Another way to look at this is to check the Lagrange equations
+\begin{equation}
+\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{x}_i}\right) - \frac{\partial L}{\partial x_i} = 0
+\end{equation}
+If we have $\frac{\partial L}{\partial x_i} = 0$ then $x_i$ is a cyclic coordinate.
+
+\item[\bf d)] What are the conserved quantities / constants of motion in this problem?\footnote{The different components of a vector counts as separate quantities.} [0.5 point per quantity, max 3 points]\\
+
+
+
+\underline{Answer:}\\
+Because all the coordinates of our particle is cyclic coordinates, we now know that
+\begin{equation}
+\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{x}_i}\right) = 0
+\end{equation}
+Which means 
+\begin{equation}
+\frac{\partial L}{\partial \dot{x}_i}
+\end{equation}
+Has to be a constant.\\
+We already calculated this derivative in b), so we know that this is just the components of the momentum, and every component is constant. In other words every component of the momentum vector is conserved.\\
+
+Because every component of the momentum is conserved, the particle must be moving in a straight line, so the position of our particle at a time t is
+\begin{equation}
+\vec{r} = \vec{r_0} + \vec{v}t
+\end{equation}
+\begin{equation}
+\vec{L} = \vec{r} \times \vec{p}
+\end{equation}
+To check if the angular momentum is conserved we check L at to different times, and we are hoping for is the relation $\vec{L}_1 = \vec{L}_0 = \vec{r_0} \times \vec{p}$\\
+
+We have:\\
+\begin{equation}
+\vec{L}_1 = \vec{r}_1 \times \vec{p} = (\vec{r_0} + \vec{v}t) \times m\vec{v} = \vec{r_0} \times m\vec{v} + mt\vec{v} \times \vec{v} = \vec{r_0} \times m\vec{v} = \vec{r_0} \times \vec{p} =\vec{L}_0
+\end{equation}
+where $\vec{v}t \times m\vec{v} = 0$ because they are parallel vectors. We see from this calculation that every component of the angular momentum is conserved.\\
+
+We can also easily see that the total energy is conserved. The total energy can be expressed with the Hamiltonian $H = K + V$.
+From equation 2.82 in Classical Mechanics  by Leinaas we have the relation
+\begin{equation}
+\frac{dH}{dt} = -\pfrac{L}{t}
+\end{equation}
+Our Lagrangian is not explicitly dependent on time, so $\pfrac{L}{t} = 0$ which means H must be a constant.\\
+
+Because our Lagrangian conserves linear and angular momentum, we now know that the Lagrangian is invariant under translation and rotation.
+
+\end{itemize}
+
+
+We will now repeat the above using instead a relativistic description of the same free particle. 
+\begin{itemize}
+\item[\bf e)] Write down a Lagrangian for the corresponding relativistic case that is invariant under Lorentz transformations and demonstrate that it is indeed invariant. [1.5 points]\\
+
+
+
+\underline{Answer:}\\
+\begin{equation}
+\mathcal{L} = \frac{1}{2}m U^{\mu}U_{\mu}
+\end{equation}
+
+To show that this Lagrangian is Lorentz invariant, we need to show that $U^{\mu}U_{\mu}$ is invariant under boosts.\\
+Useful fact:
+\begin{align*}
+g_{\mu \nu}L^\mu{}_{\rho}L^\nu{}_{\sigma} &= g_{\rho \sigma}\\
+g^{\sigma \rho} g_{\rho \mu} &= \delta_{\mu}^{\sigma}\\
+g^{\sigma \rho} g_{\sigma \rho} &= \mathbb{I}\\
+\rightarrow L^\mu{}_{\rho}L^\rho{}_{\nu} &= \delta_{\mu}^{\nu}
+\end{align*}
+
+Proof of invariance:
+\begin{align*}
+U^{\mu}U_{\mu} \rightarrow U^{\prime\mu} U^{\prime}_{ \mu} &= (L^\mu{}_{\nu} U^{\nu})(L_\mu{}^{\sigma}U_{\sigma}) = L^\mu{}_{\nu} L_\mu{}^{\sigma}U^{\nu}U_{\sigma} \\
+&= \delta_{\nu}^{\sigma}U^{\nu}U^{\sigma} = U^{\nu}U_{\nu} = U^{\mu}U_{\mu}
+\end{align*}
+Where we in the last equality just switched the name of the index to make it look pretty.
+
+\item[\bf f)] Find the conserved quantities / constants of motion for this Lagrangian. [0.5 point per quantity, max 2 points]\\
+
+
+
+\underline{Answer:}\\
+A Lagrange equation in relativistic motion is
+\begin{equation}
+\frac{d}{d\tau}\plrfrac{L}{dU^{\mu}} - \pfrac{L}{x^{\mu}} = 0
+\end{equation}
+We immediately see from our Lagrangian that $x^{\mu}$ is cyclic, hence 
+\begin{equation}
+\pfrac{L}{U^{\mu}} =\frac{1}{2}m\pfrac{(U^{\mu}U_{\mu})}{U^{\mu}}  = \frac{1}{2}m 2U_{\mu} = mU_{\mu} = P_{\mu} = K
+\end{equation}
+where K is a constant. So we see that the every component of the four-vector P is constant and hence conserved. The energy is also conserved because we have the energy contained in the first component of the four-vector $-P_0 = E/c = K$\\
+
+For clarity: For every component we get a constant. The constants for the different components are not necessary equal.
+
+
+\item[\bf g)] We will now look at a small Lorentz transformation where the Lorentz transformation tensor is given as
+\begin{equation}
+L^\mu_{\ \nu}=\delta^\mu_{\ \nu}+\omega^\mu_{\ \nu}.
+\label{eq:infL}
+\end{equation}
+
+Here $\delta^\mu_{\ \nu}$ is the Kronecker delta and $\omega^\mu_{\ \nu}$ is an infinitesimal parameter, meaning we can disregard higher orders of $\omega$. Show that $\omega^\mu_{\ \nu}$  must be antisymmetric, {\it i.e.} that $\omega^\mu_{\ \nu}=-\omega_\nu^{\ \mu}$.  [1 point]\\
+
+
+
+\underline{Answer:}\\
+We know that 
+\begin{equation}
+g_{\mu \nu}L^\mu{}_{\rho}L^{\nu }_{\ \sigma} = g_{\rho \sigma}
+\end{equation}
+By inserting:
+\begin{align*}
+g_{\mu \nu}L^\mu{}_{\rho}L^{\nu }_{\ \sigma} & =  g_{\mu \nu}(\delta^{\mu}_{\ \rho} +\omega^{\mu}_{\ \rho})
+(\delta^{\nu}_{\ \sigma} +\omega^{\nu}_{\ \sigma})\\
+& = g_{\mu \nu}(\delta^{\mu}_{\ \rho}\delta^{\nu}_{\ \sigma} + \omega^{\mu}_{\ \rho}\delta^{\nu}_{\ \sigma} + \omega^{\nu}_{\ \sigma}\delta^{\nu}_{\ \sigma} + \omega^{\nu}_{\ \sigma}\omega^{\mu}_{\ \rho})\\
+&= g_{\mu \nu}(\delta^{\mu}_{\ \rho}\delta^{\nu}_{\ \sigma} + \omega^{\mu}_{\ \rho}\delta^{\nu}_{\ \sigma} + \omega^{\nu}_{\ \sigma}\delta^{\nu}_{\ \sigma})\\
+&= g_{\rho \sigma} + \omega_{\sigma \rho} + \omega_{\rho \sigma}\\
+&= g_{\rho \sigma} + g_{\sigma \nu}(\omega^{\nu}_{\ \rho} + \omega^{\ \nu}_{\rho})\\
+&= g_{\rho \sigma} + g_{\sigma \mu}(\omega^{\mu}_{\ \nu} + \omega^{\ \mu}_{\nu})\\
+\end{align*}
+We have disregarded the higher order term $\omega^{\nu}_{\ \sigma}\omega^{\mu}_{\ \rho}$. In the last equality we just canged the name of the indices to match what we have in the exercise.\\
+As we can see, our calculation is equal to $g_{\rho \sigma}$ if $\omega^{\mu}_{\ \nu} =  -\omega^{\ \mu}_{\nu}$, so this must be the case.\\
+
+\item[\bf h)]  Assume that a small Lorentz transformation between two reference frames changes the path $x^\mu(\tau)$ of a particle according to
+\begin{equation}
+\delta x^\mu(\tau)=x'^\mu(\tau)-x^\mu(\tau)=\omega^\mu_{\ \nu} x^\nu(\tau).
+\label{eq:deltax}
+\end{equation}
+Show that the corresponding change in the Lagrangian is
+\begin{equation}
+\delta L=\left( \frac{\partial L}{\partial x^\mu}x^\nu+\frac{\partial L}{\partial U^\mu}U^\nu  \right)\omega^\mu_{\ \nu}.
+\label{eq:deltaL1}
+\end{equation}
+[1 point]\\
+
+
+
+\underline{Answer:}\\
+We are assuming a small Lorentz transformation, which corresponds to a small change in coordinates $x'^\mu(\tau)= x^\mu(\tau) +  \delta x^\mu(\tau)$. We use the identity (2.62) in classical mechanics by J.M.Leinaas
+\begin{equation}
+\delta L = \pfrac{L}{x^{\mu}}\delta x^{\mu} + \pfrac{L}{\dot{x}^{\mu}}\delta \dot{x}^{\mu}
+\end{equation}
+Now, from the equation $\delta x^\mu(\tau)=x'^\mu(\tau)-x^\mu(\tau)=\omega^\mu_{\ \nu} x^\nu(\tau)$ we get
+\begin{align*}
+\delta x^{\mu} &= \omega^{\mu}_{\nu}x^{\nu}\\
+\frac{d}{d\tau}(\delta x^{\mu}) &= \omega^{\mu}_{\ \nu}\frac{d}{d\tau}x^{\nu} = \omega^{\mu}_{\ \nu}U^{\nu}
+\end{align*} 
+And by using this in our equation for $\delta L$ we get
+\begin{equation}
+\delta L=\left( \frac{\partial L}{\partial x^\mu}x^\nu+\frac{\partial L}{\partial U^\mu}U^\nu  \right)\omega^\mu_{\ \nu}
+\end{equation}
+
+
+\item[\bf i)]  Use Lagrange's equation to show that you can also write Eq.~(\ref{eq:deltaL1})  as
+\begin{equation}
+\delta L=\frac{1}{2}\omega_{\nu\mu}\, \frac{d}{d\tau}\left( x^\mu \frac{\partial L}{\partial U_\nu}-x^\nu \frac{\partial L}{\partial U_\mu} \right).
+\label{eq:deltaL2}
+\end{equation}
+[1.5 points]\\
+
+
+
+\underline{Answer:}\\
+\begin{align*}
+  \delta L &=\left( \frac{\partial L}{\partial x^\mu}x^\nu+\frac{\partial L}{\partial U^\mu}U^\nu  \right)\omega^\mu_{\ \nu}\\
+   &= \frac{d}{d\tau}\left (\pfrac{L}{U^{\mu}}x^{\nu} \right )\omega^\mu_{\ \nu} + \frac{\partial L}{\partial x^\mu}x^\nu \omega^\mu_{\ \nu}- \frac{d}{d\tau}\left (\pfrac{L}{U^{\mu}}\right )x^{\nu}\omega^\mu_{\ \nu}\\
+   &= \frac{d}{d\tau}\left (\pfrac{L}{U^{\mu}}x^{\nu} \right )\omega^\mu_{\ \nu}
+\end{align*}
+Where we have used Lagrange's equations in the last equality.\\
+We now have:
+\begin{align*}
+\delta L &= \frac{d}{d\tau}\left (\pfrac{L}{U^{\mu}}x^{\nu} \right )\omega^\mu_{\ \nu}\\
+&= \frac{1}{2} \frac{d}{d\tau}\left (\pfrac{L}{U^{\mu}}x^{\nu} + \pfrac{L}{U^{\mu}}x^{\nu}\right )\omega^\mu_{\ \nu}\\
+&= \frac{1}{2} \frac{d}{d\tau}\left (\pfrac{L}{g^{\mu\rho}U_{\rho}}x^{\nu}\omega^\mu_{\ \nu} - \pfrac{L}{g^{\mu\sigma}U_{\sigma}}x^{\nu}\omega^{\ \mu}_{\nu}\right )\\
+&= \frac{1}{2} \frac{d}{d\tau}\left (\pfrac{L}{U_{\rho}}g_{\mu\rho}x^{\nu}\omega^\mu_{\ \nu} - \pfrac{L}{U_{\sigma}}g_{\mu\sigma}x^{\nu}\omega^{\ \mu}_{\nu}\right )\\
+&= \frac{1}{2} \frac{d}{d\tau}\left (\pfrac{L}{U_{\rho}}x^{\nu}\omega_{\rho \nu} - \pfrac{L}{U_{\sigma}}x^{\nu}\omega_{\nu\sigma}\right )\\
+&= \frac{1}{2} \frac{d}{d\tau}\left (\pfrac{L}{U_{\nu}}x^{\mu}\omega_{\nu \mu} - \pfrac{L}{U_{\mu}}x^{\nu}\omega_{\nu\mu}\right )\\
+&= \frac{1}{2} \frac{d}{d\tau}\left (\pfrac{L}{U_{\nu}}x^{\mu} - \pfrac{L}{U_{\mu}}x^{\nu}\right )\omega_{\nu\mu}
+\end{align*}
+In the second to last step we just changed the name of the indices.\\
+
+\item[\bf j)] Identify which quantities are conserved because of the invariance under Lorentz transformations. [1.5 points]\\
+
+
+
+\underline{Answer:}\\
+The invariance under Lorentz transformations means that the Lagrangian does noe change under transformations, which implies that $\delta L = 0$.\\
+We use this in eq. (19) and get 
+\begin{equation}
+\delta L = \frac{1}{2} \frac{d}{d\tau}\left (\pfrac{L}{U_{\nu}}x^{\mu} - \pfrac{L}{U_{\mu}}x^{\nu}\right )\omega_{\nu\mu} = 0
+\end{equation}
+We learned from exercise f) that $\pfrac{L}{x^{\sigma}} = P_\sigma$. We substitute this in eq. (19) and get
+\begin{equation}
+\frac{1}{2} \frac{d}{d\tau}\left (P^{\nu}x^{\mu} - P^{\mu}x^{\nu}\right )\omega_{\nu\mu} = 0
+\end{equation}
+We immediately recognize the expression in the parenthesis as the components of the angular momentum. For the expression to be zero, we need the derivative with respect $\tau$ to be zero, which means the expression in the parenthesis must be a constant.\\
+In other words, the angular momentum is constant.\\
+
+We now know that for our relativistic particle the linear momentum, the energy and the angular momentum is conserved. Or equivalently the Lagrangian is invariant under translation and rotation. This is the same result as we had in the non-relativistic case.
+
+\end{itemize}
+\end{exercise}
+
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{exercise}{\bf Relativistics\\}
+%%%%%%%%%%%%%%%%%%%%
+Two particles with mass $m$ and a photon is sent out from a source at the same time and in the positive $x$-direction of the rest frame $S$ of the source. The massive particles are moving with constant velocity $v_1$ and $v_2>v_1$ in this frame. Draw a Minkowski-diagram of the motion of the source, both massive particles and the photon in $S$, and draw the axis of the rest frame $S'$ of the slowest particle. Show that the difference in rapidity of the two massive particles is the same in $S$ and $S'$.\footnote{In fact this is always true, rapidity differences are unchanged by boosts no matter which reference frames you look at. I am sure you can see this from your proof!} [5 points]\\
+
+
+
+\underline{Answer:}\\
+\begin{figure}[h!]
+\centering
+  \begin{tikzpicture}[scale=1.4]
+    % Axis
+    \coordinate (y) at (0,6);
+    \coordinate (x) at (6,0);
+    \coordinate (y') at (1,6);
+    \coordinate (x') at (6,1);
+
+    \draw[<->, thick] (y) node[above] {$ct$} -- (0,0) --  (x) node[right]{$x$};
+  	\draw[<->, thick] (y') node[above] {$ct'$} -- (0,0) --  (x') node[right]{$x'$};
+  	\draw[yellow, dashed] (0,0) -- (4,4) node[right] {$Photon$};
+  	\fill[yellow] (4,4) circle (0.05cm);
+  	 \draw[blue, -] (0,0) -- (3,4) node[right] {$v_2$};
+  	 \fill[blue] (3,4) circle (0.05cm);
+  	 \draw[red, -] (0,0) -- (0.5,3) node[left] {$v_1$};
+  	 \fill[red] (0.5,3) circle (0.05cm);
+  	 \draw[] (0.75,4.5) node[left] {$S'$};
+	\draw[] (0,5) node[left] {$S$};
+	\draw[green, -] (0,0) -- (0,3.5) node[left] {$Source$};
+  	 \fill[green] (0,3.5) circle (0.05cm);
+    % A grid can be useful when defining coordinates
+    % \draw[step=1mm, gray, thin] (0,0) grid (5,5); 
+    % \draw[step=5mm, black] (0,0) grid (5,5); 
+    \end{tikzpicture}
+\caption{A minkowski diagram of a source at rest in reference fram S, a photon and two massive particles with speed $v_1$ and $v_2$ where $v_2 > v_1$. In reference frame S' the particle 1 is at rest.}
+\end{figure}
+
+
+
+
+
+
+
+
+Rapidity is defined as 
+\begin{equation}
+\chi = \arctanh (\frac{v}{c})
+\end{equation}
+So the difference in rapidity for reference frame S is 
+\begin{equation}
+\Delta \chi = \chi_2 - \chi_1 = \arctanh (\frac{v_2}{c}) - \arctanh (\frac{v_1}{c})
+\end{equation}
+For reference fram S' we are in the rest fram om particle 1, so $v_1^{\prime} = 0 $. We have
+\begin{equation}
+\Delta \chi^{\prime} = \chi_2^{\prime} - \chi_1^{\prime} = \arctanh (\frac{v_2^{\prime}}{c}) - \arctanh (\frac{v_1^{\prime}}{c}) = \arctanh (\frac{v_2^{\prime}}{c})
+\end{equation}
+The velocity of particle 2 is colinear with the relative velocity of the two frames. This means we can now find an expression for $v_2^{\prime}$ using the transformation formula for the speed of a particle in different reference frames\\
+\begin{equation}
+u^{\prime} = \frac{u - v}{1 - \frac{uv}{c^2}}
+\end{equation}
+In our case the speed of reference frame $S' = v_1$ in reference to S, so we get
+\begin{equation}
+v_2^{\prime} = \frac{v_2 - v_1}{1 - \frac{v_2 v_1}{c^2}}
+\end{equation}
+This means
+\begin{equation}
+\Delta \chi^{\prime} = \arctanh (\frac{v_2^{\prime}}{c}) = \arctanh \left (\frac{\frac{v_2}{c} - \frac{v_1}{c}}{1 - \frac{v_2 v_1}{c^2}}\right )
+\end{equation}
+In Rottmann p.90 we find the relation
+\begin{equation}
+\arctanh (x) \pm \arctanh (y) = \arctanh \left (\frac{x \pm y}{1 \pm xy}\right)
+\end{equation}
+With $x = \frac{v_2}{c}$ and $y = \frac{v_1}{c}$ we get
+\begin{equation}
+\Delta \chi^{\prime} = \arctanh (\frac{v_2}{c}) - \arctanh (\frac{v_1}{c}) = \Delta \chi
+\end{equation}
+\end{exercise}
+
+So the difference in rapidity is the same in both reference systems.\\
+
+
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{exercise}{\bf Finding the shortest way\\}
+%%%%%%%%%%%%%%%%%%%%
+Using calculus of variations, find the shortest path between two points on a sphere. We want the answer in terms of a function $\phi(\theta)$ using spherical coordinates $(r,\theta,\phi)$. By the rotational symmetry of the problem you may assume that the starting point is $(r,\frac{\pi}{2},0)$. To simplify the answer you may also ignore the special solutions through this point with constant $\phi=0$ or $\theta=\frac{\pi}{2}$.   [5 points]\\
+
+
+
+\underline{Answer:}\\
+We need to solve the path integral
+\begin{equation}
+S = \int ds
+\end{equation}
+And minimize it. From calculus of variations, we know that S is minimized by constructing a Lagrangian $L(\lambda, \Gamma (\lambda), \Gamma^{\prime} (\lambda))$ inside the integral, and solving the Lagrange equations.\\
+\\
+$ds = \sqrt{dx^{2} + dy^{2} + dz^{2}}$ is an infinitesimal line element on a sphere.
+We change coordinates to the spherical coordinates
+\begin{align*}
+&x = R\sin \theta \cos\phi, \quad y = R\sin \theta \sin \phi, \quad z = R\cos \theta\\
+&dx = Rcos\theta cos\phi d\theta - Rsin\theta sin\phi d\phi\\
+&dy = Rcos\theta \sin \phi d\theta + Rsin \theta cos\phi d\phi\\
+&dz = -Rsin\theta d\theta
+\end{align*}
+\begin{equation}
+S = \int ds = \int \sqrt{dx^{2} + dy^{2} + dz^{2}} = R\int \sqrt{d\theta^{2} + sin^{2}\theta d\phi^{2} } = R\int d\theta \sqrt{1 + sin^{2}\theta (\frac{d\phi}{d\theta})^{2}}
+\end{equation}
+\begin{equation}
+L = \sqrt{1 + sin^{2}\theta (\frac{d\phi}{d\theta})^{2}} = \sqrt{1 + sin^{2}\theta \phi^{\prime 2}}
+\end{equation}
+Where $(\frac{d\phi}{d\theta})^{2} = \phi^{\prime 2}$.\\
+We can see this does not depend explicitly on $\phi$, hence $\phi$ is a cyclic coordinate and the derviative of L with respect to $\phi^{\prime}$ must be constant
+\begin{equation}
+\pfrac{L}{\phi^{\prime}} = K
+\end{equation}
+Where K is a constant.\\
+We calculate the derivative
+\begin{equation}
+\pfrac{L}{\phi^{\prime}} = Rsin^2 \theta \phi^{\prime}(1 + sin^2 \theta )^{-\frac{1}{2}} = K
+\end{equation}
+We rearrange this and get
+\begin{equation}
+\phi^{\prime} = \frac{K}{sin\theta \sqrt{sin^2 \theta - K^2}}
+\end{equation}
+Taking the integral on both sides
+\begin{equation}
+\int\limits_{\phi_0}^{\phi} d\phi = \int\limits_{\theta_0}^{\theta}\frac{K}{sin\theta \sqrt{sin^2 \theta - K^2}} d\theta
+\end{equation}
+By using the initial conditions $\phi_0 = 0$ and $\theta_0 = \pi /2$ we get
+\begin{equation}
+\phi = \int\limits_{\frac{\pi}{2}}^{\theta}\frac{K}{sin\theta \sqrt{sin^2 \theta - K^2}} d\theta
+\end{equation}
+By using the identity $sin^2 \theta = 1 + cot^2 \theta$ we get
+\begin{equation}
+\phi = K\int\limits_{\frac{\pi}{2}}^{\theta} \frac{1 + cot^2 \theta}{\sqrt{1 - K^2 + K^2 cot^2 \theta}}
+\end{equation}
+We recognize that this integrand is pretty similar to $\frac{1}{\sqrt{1 - u^2}}$ which is very easy to integrate.\\
+We try the substitute $u = \Gamma cot \theta$, where $\Gamma$ is just some constant.\\
+From Rottmann p.130 we find that $du = -\Gamma sin^{-2} = -\Gamma (1 + cot^2 \theta)$\\
+We substitute and find
+\begin{equation}
+\phi = -\int\limits_{u(\frac{\pi}{2})}^{u(\theta)}\frac{du}{\sqrt{\frac{\Gamma^2}{K^2} - \Gamma^2 - u^2}}
+\end{equation}
+Now we want to choose the constant $\Gamma$ so $\frac{\Gamma^2}{K^2} - \Gamma^2 = 1$. \\
+This gives $\Gamma = \frac{K}{\sqrt{1 - K^2}}$. We are now left with the integral
+\begin{align*}
+\phi &= -\int\limits_{u(\frac{\pi}{2})}^{u(\theta)}\frac{1}{\sqrt{1 - u^2}} \stackrel{*}{=}  \int\limits_{u(\frac{\pi}{2})}^{u(\theta)}\frac{d }{du}arccos(u) du \\
+&= arccos(u(\theta)) - arccos(u(\frac{\pi}{2})) = arccos(\frac{K}{\sqrt{1 - K^2}} cot(\theta))
+\end{align*}
+Where the equality * is from rottmann p.130
+\end{exercise}
+
+
+\end{document}

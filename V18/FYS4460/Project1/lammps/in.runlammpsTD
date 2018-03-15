@@ -1,0 +1,36 @@
+# 3d Lennard-Jones gas
+
+# ---------- Initialize Simulation ---------------------
+clear
+units lj
+dimension 3
+boundary p p p
+atom_style atomic
+
+# ---------- Create Atoms ---------------------
+lattice fcc 0.5
+region simbox block 0 10 0 10 0 10
+create_box 1 simbox
+create_atoms 1 box
+mass 1 1.0
+velocity all create 3.0 87287 dist uniform
+
+# ---------- Define Interatomic Potential ---------------------
+pair_style lj/cut 3.0
+pair_coeff 1 1 1.0 1.0 3.0
+
+# ---------- Define Settings ---------------------
+compute peatom all pe/atom
+compute pe all reduce sum c_peatom
+compute keatom all ke/atom
+compute ke all reduce sum c_keatom
+
+# ---------- Run Minimization ---------------------
+timestep 0.004
+fix 1 all nve
+# dump 1 all custom 10 dump.lammpstrj id type x y z vx vy vz c_peatom c_keatom
+log lammps/T3.0D0.5
+thermo 10
+thermo_style custom step temp etotal press pe ke density
+run 5000
+
