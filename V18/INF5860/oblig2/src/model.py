@@ -167,7 +167,7 @@ def cross_entropy_cost(Y_proposed, Y_reference):
     # TODO: Task 3
     m = Y_reference.shape[1]
     cost = -1.0/m * np.sum(Y_reference*np.log(Y_proposed))
-    num_correct = 
+    num_correct = np.sum(np.argmax(Y_proposed, axis=0) == np.argmax(Y_reference, axis=0))
     return cost, num_correct
 
 
@@ -181,7 +181,7 @@ def activation_derivative(Z, activation_function):
     """
     # TODO: Task 4 a)
     if activation_function == 'relu':
-        return None
+        return (Z >= 0) * 1
     else:
         print("Error: Unimplemented derivative of activation function: {}", activation_function)
         return None
@@ -205,7 +205,23 @@ def backward(conf, Y_proposed, Y_reference, params, features):
                 - the gradient of the biases grad_b^[l] for l in [1, L].
     """
     # TODO: Task 4 b)
-    grad_params = None
+    grad_params = {}
+    L = len(conf['layer_dimensions']) - 1
+    m = Y_proposed.shape[1]
+    
+    J_L = Y_proposed - Y_reference
+    dw = 1.0/m*np.dot(features['A_{}'.format(L-1)], J_L.T)
+    db = 1.0/m*np.dot(J_L, np.ones((m,1))) 
+    grad_params['grad_W_{}'.format(L)] = dw
+    grad_params['grad_b_{}'.format(L)] = db
+
+    for l in reversed(range(1, L)):
+        J_l = activation_derivative(features['Z_{}'.format(l)], 'relu') * np.dot(params['W_{}'.format(l + 1)], J_L)
+        dw = 1.0/m*np.dot(features['A_{}'.format(l - 1)], J_l.T)
+        db = 1.0/m*np.dot(J_l, np.ones((m,1))) 
+        grad_params['grad_W_{}'.format(l)] = dw
+        grad_params['grad_b_{}'.format(l)] = db
+
     return grad_params
 
 
@@ -221,20 +237,35 @@ def gradient_descent_update(conf, params, grad_params):
         updated_params: Updated parameter dictionary.
     """
     # TODO: Task 5
+    lamda = conf['learning_rate']
+
+    # for key in
+    print(params.keys())
+    print(grad_params.keys())
+    print(sorted(params.keys()))
+    print(sorted(grad_params.keys()))
+
+    for key in sorted(jfkldsjf):
+
     updated_params = None
     return updated_params
 
 if __name__ == '__main__':
 
-    from tests import task_2c
-    conf, X_batch, params, expected_Z_1, expected_A_1, expected_Z_2, expected_Y_proposed = task_2c()
-    Y_proposed, features = forward(conf, X_batch, params, is_training=True)
-    for key in features:
-        print (key)
-        for y in features[key]:
-            print(y)
-    print(expected_Z_1)
-    print(expected_Z_2)
-    print(expected_A_1)
-    print(expected_Z_1)
-    print(expected_Z_1)
+    # from tests import task_2c
+    from tests import task_3
+    Y_proposed, Y_batch, expected_cost_value, expected_num_correct = task_3()
+    cost_value, num_correct = cross_entropy_cost(Y_proposed, Y_batch)
+    print(Y_proposed)
+    print(Y_batch)
+    # conf, X_batch, params, expected_Z_1, expected_A_1, expected_Z_2, expected_Y_proposed = task_2c()
+    # Y_proposed, features = forward(conf, X_batch, params, is_training=True)
+    # for key in features:
+    #     print (key)
+    #     for y in features[key]:
+    #         print(y)
+    # print(expected_Z_1)
+    # print(expected_Z_2)
+    # print(expected_A_1)
+    # print(expected_Z_1)
+    # print(expected_Z_1)
