@@ -1,10 +1,10 @@
 **.lammpstrj
 **.swp
-Doc/
+**/Doc/
 **.tar
 **.zip
 **/lammps/T*
 *.pyc
 **log.lammps
 **testpenis.py
-
+test.py

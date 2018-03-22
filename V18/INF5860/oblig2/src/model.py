@@ -13,6 +13,9 @@
 """Define the dense neural network model"""
 
 import numpy as np
+import sys
+from IPython import get_ipython
+# sys.path.remove('/usr/local/lib/python2.7/site-packages')
 from scipy.stats import truncnorm
 
 
@@ -44,10 +47,21 @@ def initialization(conf):
                 the network.
     """
     # TODO: Task 1
-    params = None
+    layer_dimensions = conf['layer_dimensions']
+    L = len(layer_dimensions)
+
+
+    params = {}
+    for l in range(1, L):
+        W = np.random.normal(0.0, np.sqrt(2.0/layer_dimensions[l-1]), size=(layer_dimensions[l-1], layer_dimensions[l]))
+
+        b = np.zeros((1, layer_dimensions[l]))
+
+        params['W{}'.format(l)] = W
+        params['b{}'.format(l)] = b
+
 
     return params
-
 
 def activation(Z, activation_function):
     """Compute a non-linear activation function.
@@ -59,7 +73,7 @@ def activation(Z, activation_function):
     """
     # TODO: Task 2 a)
     if activation_function == 'relu':
-        return None
+        return (Z >= 0) * Z 
     else:
         print("Error: Unimplemented derivative of activation function: {}", activation_function)
         return None
@@ -79,7 +93,9 @@ def softmax(Z):
         numpy array of floats with shape [n, m]
     """
     # TODO: Task 2 b)
-    return None
+    Z -= np.max(Z)
+    S = np.exp(Z - np.log(np.sum(np.exp(Z), axis=0)))
+    return S
 
 
 def forward(conf, X_batch, params, is_training):
@@ -104,8 +120,35 @@ def forward(conf, X_batch, params, is_training):
                We cache them in order to use them when computing gradients in the backpropagation.
     """
     # TODO: Task 2 c)
-    Y_proposed = None
-    features = None
+    layer_dimensions = conf['layer_dimensions']
+    L = len(layer_dimensions)
+    activation_function = conf['activation_function']
+
+    features = {}
+    features['A_0'] = X_batch
+
+
+
+    for l in range(1, L-1):
+        W = params['W_{}'.format(l)]
+        b = params['b_{}'.format(l)]
+        A = features['A_{}'.format(l-1)]
+
+        Z = np.dot(W.T, A) + b
+        features['Z_{}'.format(l)] = Z
+        features['A_{}'.format(l)] =  activation(Z, activation_function)
+
+    #Last step, trying to avoid if-tests in the for-loop
+    W = params['W_{}'.format(L-1)]
+    b = params['b_{}'.format(L-1)]
+    A = features['A_{}'.format(L-2)]
+    
+    Z = np.dot(W.T, A) + b
+    features['Z_{}'.format(L-1)] = Z.round(2)
+
+    Y_proposed = softmax(Z)
+    features['A_{}'.format(L-1)] = Y_proposed
+
     return Y_proposed, features
 
 
@@ -122,8 +165,9 @@ def cross_entropy_cost(Y_proposed, Y_reference):
         num_correct: Scalar integer
     """
     # TODO: Task 3
-    cost = None
-    num_correct = None
+    m = Y_reference.shape[1]
+    cost = -1.0/m * np.sum(Y_reference*np.log(Y_proposed))
+    num_correct = 
     return cost, num_correct
 
 
@@ -179,3 +223,18 @@ def gradient_descent_update(conf, params, grad_params):
     # TODO: Task 5
     updated_params = None
     return updated_params
+
+if __name__ == '__main__':
+
+    from tests import task_2c
+    conf, X_batch, params, expected_Z_1, expected_A_1, expected_Z_2, expected_Y_proposed = task_2c()
+    Y_proposed, features = forward(conf, X_batch, params, is_training=True)
+    for key in features:
+        print (key)
+        for y in features[key]:
+            print(y)
+    print(expected_Z_1)
+    print(expected_Z_2)
+    print(expected_A_1)
+    print(expected_Z_1)
+    print(expected_Z_1)
