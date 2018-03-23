@@ -53,13 +53,15 @@ def initialization(conf):
 
     params = {}
     for l in range(1, L):
+       
         W = np.random.normal(0.0, np.sqrt(2.0/layer_dimensions[l-1]), size=(layer_dimensions[l-1], layer_dimensions[l]))
 
-        b = np.zeros((1, layer_dimensions[l]))
+        b = np.zeros((layer_dimensions[l], 1) )
+        # b = np.zeros((1, layer_dimensions[l]))
 
-        params['W{}'.format(l)] = W
-        params['b{}'.format(l)] = b
-
+        params['W_{}'.format(l)] = W
+        params['b_{}'.format(l)] = b
+    
 
     return params
 
@@ -120,6 +122,37 @@ def forward(conf, X_batch, params, is_training):
                We cache them in order to use them when computing gradients in the backpropagation.
     """
     # TODO: Task 2 c)
+    # layer_dims = conf['layer_dimensions']
+    # L = len(layer_dims)
+    # act_func = conf['activation_function']
+
+    # features = {}
+    # features['A_0'] = X_batch 
+
+    # for i in range(1,L):
+    #     print("forward:", i)
+    #     W = params['W_'+ str(i)]
+    #     b = params['b_' + str(i)]
+    #     A = features['A_' + str(i-1)]
+    #     # Z = np.dot(A, W.T) + b
+    #     print("A", A.shape)
+    #     print("W", W.shape)
+    #     print("b", b.shape)
+    #     Z = np.dot(W.T, A) + b 
+    #     features['Z_' + str(i)] = Z.round(2)
+
+    #     if i != (L-1):
+    #         A_next = activation(Z, act_func)
+    #         features['A_'+ str(i)] = A_next
+    #     else:
+    #         A_next = softmax(Z)
+    #         features['A_' + str(i)] = A_next
+    #         Y_proposed = A_next
+
+
+
+
+
     layer_dimensions = conf['layer_dimensions']
     L = len(layer_dimensions)
     activation_function = conf['activation_function']
@@ -127,13 +160,12 @@ def forward(conf, X_batch, params, is_training):
     features = {}
     features['A_0'] = X_batch
 
-
-
     for l in range(1, L-1):
         W = params['W_{}'.format(l)]
         b = params['b_{}'.format(l)]
         A = features['A_{}'.format(l-1)]
 
+        # Z = np.dot(A, W.T) + b
         Z = np.dot(W.T, A) + b
         features['Z_{}'.format(l)] = Z
         features['A_{}'.format(l)] =  activation(Z, activation_function)
@@ -221,7 +253,7 @@ def backward(conf, Y_proposed, Y_reference, params, features):
         db = 1.0/m*np.dot(J_l, np.ones((m,1))) 
         grad_params['grad_W_{}'.format(l)] = dw
         grad_params['grad_b_{}'.format(l)] = db
-
+        J_L = J_l
     return grad_params
 
 
@@ -238,16 +270,14 @@ def gradient_descent_update(conf, params, grad_params):
     """
     # TODO: Task 5
     lamda = conf['learning_rate']
+    updated_params = {}
+    keys = sorted(params.keys())
+    dkeys = sorted(grad_params.keys())
+    for key, dkey in zip(keys, dkeys):
+        updated_params[key] = params.get(key) - lamda*grad_params.get(dkey)
+   
 
-    # for key in
-    print(params.keys())
-    print(grad_params.keys())
-    print(sorted(params.keys()))
-    print(sorted(grad_params.keys()))
-
-    for key in sorted(jfkldsjf):
-
-    updated_params = None
+    
     return updated_params
 
 if __name__ == '__main__':
