@@ -157,7 +157,7 @@ def load_cifar10(data_dir="data/cifar10", devel_size=10000):
     for ind in range(1, 6):
         filepath = os.path.join(data_dir, "cifar-10-batches-py/data_batch_{}".format(ind))
         with open(filepath, 'rb') as fil:
-            data_dict = pickle.load(fil, encoding='latin-1')
+            data_dict = pickle.load(fil)
         if ind == 1:
             X_train = data_dict['data']
         else:
@@ -166,7 +166,7 @@ def load_cifar10(data_dir="data/cifar10", devel_size=10000):
     Y_train = np.array(Y_train)
 
     with open(os.path.join(data_dir, "cifar-10-batches-py/test_batch"), 'rb') as fil:
-        test_data_dict = pickle.load(fil, encoding='latin-1')
+        test_data_dict = pickle.load(fil)
     X_test = test_data_dict['data']
     Y_test = np.array(test_data_dict['labels'])
 

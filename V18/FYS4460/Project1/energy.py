@@ -41,8 +41,8 @@ def plot_energies(filetype = "lammps/energy/*.lammpstrj"):
     plt.xlabel("Time")   
     plt.ylabel("Total Energy [Lj]")
     plt.legend()
-
-    plt.show()
+    fig.savefig('img/TimestepCompare.png')
+    # plt.show()
 def find_temperature(filetype):
     potentalenergy, kineticenergy, totalenergy, num_particles  =  find_energies(filetype) 
     temperature = 2./3*np.array(kineticenergy)[:]
@@ -52,12 +52,17 @@ def find_temperature(filetype):
     bx = fig.add_subplot(3, 1, 2)
     cx = fig.add_subplot(3, 1, 3)
     ax.plot(temperature/avg_temp)
+    ax.set_ylabel(r"$T/T_{avg}$")
     bx.plot(temperature)
+    bx.set_ylabel("T")
     cx.plot(temperature / temperature[0])
-    plt.show()
+    cx.set_ylabel(r"T/T_0")
+    plt.tight_layout()
+    fig.savefig('img/Temperatures.png')
+    # plt.show()
    
 if __name__ == "__main__":
-    #plot_energies()
+    plot_energies()
     find_temperature("lammps/dumptest.lammpstrj")
 
 

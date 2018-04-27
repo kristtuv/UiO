@@ -122,36 +122,6 @@ def forward(conf, X_batch, params, is_training):
                We cache them in order to use them when computing gradients in the backpropagation.
     """
     # TODO: Task 2 c)
-    # layer_dims = conf['layer_dimensions']
-    # L = len(layer_dims)
-    # act_func = conf['activation_function']
-
-    # features = {}
-    # features['A_0'] = X_batch 
-
-    # for i in range(1,L):
-    #     print("forward:", i)
-    #     W = params['W_'+ str(i)]
-    #     b = params['b_' + str(i)]
-    #     A = features['A_' + str(i-1)]
-    #     # Z = np.dot(A, W.T) + b
-    #     print("A", A.shape)
-    #     print("W", W.shape)
-    #     print("b", b.shape)
-    #     Z = np.dot(W.T, A) + b 
-    #     features['Z_' + str(i)] = Z.round(2)
-
-    #     if i != (L-1):
-    #         A_next = activation(Z, act_func)
-    #         features['A_'+ str(i)] = A_next
-    #     else:
-    #         A_next = softmax(Z)
-    #         features['A_' + str(i)] = A_next
-    #         Y_proposed = A_next
-
-
-
-
 
     layer_dimensions = conf['layer_dimensions']
     L = len(layer_dimensions)

@@ -8,7 +8,7 @@ from matplotlib.ticker import LinearLocator, FormatStrFormatter
 def pressure():
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    files = glob.glob("lammps/T*")
+    files = glob.glob("lammps/T*D0.01")
 
     p = []
     t = []
@@ -18,10 +18,11 @@ def pressure():
         p.append(np.average(press))
         t.append(temp[0])
 
-        ax.plot(t, p)
-        ax.xlabel("Temperature [T/T0]")
-        ax.ylabel("Pressure []")
-        plt.show()
+    ax.plot(t, p)
+    ax.set_xlabel("Temperature [T/T0]")
+    ax.set_ylabel("Pressure []")
+    fig.savefig("img/PressureTemperature.png")
+    plt.show()
 
 def pressure_and_temperature():
     fig = plt.figure()
@@ -40,8 +41,9 @@ def pressure_and_temperature():
     
   
     surf = ax.plot_trisurf(d, t, p, cmap=cm.coolwarm)
+    fig.savefig('img/TemperaturePressureDensity.png')
     plt.show()
 
 if __name__ == "__main__":
-    # pressure()
+    pressure()
     pressure_and_temperature()
