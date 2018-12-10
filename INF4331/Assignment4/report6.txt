@@ -1,0 +1,16 @@
+As we can see, the size of the N values are equal when the same method has been
+used, which is to be expected. The type of integrator should only alter the
+simulation time not the result.
+
+
+### Simulation with N value starting at N and increasing with 1000 for each
+interation until the error satisfactory###
+
+Error for pure python at N value 136001 is 8.89506246438e-11
+Error for pure python midpoint at N value 96001 is 8.92521612172e-11
+Error for numpy at N value 136001 is 8.89337492538e-11
+Error for numpy_midpoint at N value 96001 is 8.92415030762e-11
+Error for numba at N value 136001 is 8.89506246438e-11
+Error for numba_midpoint at N value 96001 is 8.9251717128e-11
+Error for cython at N value 136001 is 8.89506246438e-11
+Error for cython_midpoint at N value 96001 is 8.92521612172e-11

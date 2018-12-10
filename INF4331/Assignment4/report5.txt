@@ -1,0 +1,38 @@
+As we saw with numba the speed difference increases as we increase the N-value.
+For N = 200 000 000 we get approx 4 times speed increase, which means cython was
+slower than numba and more work to implement. The cython code can ofcource be
+developed further so it is even closer to pure C-implementation which would
+eventually make it extremely fast.
+
+N = 2 000 000
+Runtime for numpy integral: 0.043151
+Runtime for numpy integral: 0.036309
+Runtime for numpy integral: 0.038453
+Runtime for numpy integral: 0.036399
+
+Runtime for cython integral: 0.030333
+Runtime for cython integral: 0.027989
+Runtime for cython integral: 0.027621
+Runtime for cython integral: 0.029168
+
+N = 20 000 000
+Runtime for numpy integral: 0.489896
+Runtime for numpy integral: 0.454191
+Runtime for numpy integral: 0.447774
+Runtime for numpy integral: 0.449277
+
+Runtime for cython integral: 0.401335
+Runtime for cython integral: 0.34052
+Runtime for cython integral: 0.327899
+Runtime for cython integral: 0.330523
+
+N = 200 000 000:
+Runtime for numpy integral: 18.713021
+Runtime for numpy integral: 16.463504
+Runtime for numpy integral: 17.458149
+Runtime for numpy integral: 16.578165
+
+Runtime for cython integral: 10.309977
+Runtime for cython integral: 5.142601
+Runtime for cython integral: 4.712041
+Runtime for cython integral: 4.691007

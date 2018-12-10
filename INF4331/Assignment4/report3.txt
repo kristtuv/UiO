@@ -1,0 +1,13 @@
+At this N value we get about 60 times increase in speed
+
+### Simulation ###
+N = 2 000 000
+Runtime for pure python integral: 1.997982
+Runtime for pure python integral: 2.005758
+Runtime for pure python integral: 1.978458
+Runtime for pure python integral: 1.997434
+
+Runtime for numpy integral: 0.043151
+Runtime for numpy integral: 0.036309
+Runtime for numpy integral: 0.038453
+Runtime for numpy integral: 0.036399

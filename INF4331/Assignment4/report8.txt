@@ -1,0 +1,16 @@
+Invalid value encountered in divide was a common theme. I could get it down to
+about 0.55 if tried some different values, but I gave up coming any closer.
+
+### Simulation###
+
+Integral 1: 0.56366197407
+
+Integral 2: 0.56366197407
+
+Integral 3: 0.563661974071
+
+Integral 4: 0.563661974071
+
+Integral 5: 0.563661974063
+
+Integral 6: 0.56366197407

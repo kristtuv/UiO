@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <title> Make temperature plots </title>
+  <link href="http://thomasf.github.io/solarized-css/solarized-dark.min.css" rel="stylesheet">
+</head>
+<body>
+<h1> Plot Temperature </h1><br>
+<form action="/temperature" method="POST">
+   Start Year<br>
+   <input type="text" name="StartYearTemp"</input><br>
+   <br>End Year<br>
+   <input type="text" name="EndYearTemp"</input><br>
+  <br> Select maximum y-value <br>
+   <input type="text" name="YMaxTemp"</input><br>
+  <br> Select minimum y-value <br>
+   <input type="text" name="YMinTemp"</input><br>
+  <br> Select month <br>
+   <select name="Month">
+      <option value="January">January</option>
+      <option value="February">February</option>
+      <option value="March">March</option>
+      <option value="April">April</option>
+      <option value="May">May</option>
+      <option value="June">June</option>
+      <option value="July">July</option>
+      <option value="August">August</option>
+      <option value="September">September</option>
+      <option value="Oktober">Oktober</option>
+      <option value="November">November</option>
+      <option value="December">December</option>
+    </select><br>
+  <br> <input type="submit" value="Submit"> <br>
+</form>
+<img src="data:image/png;base64,{{ temperatureplot }}" width=100%>
+
+</body>
+</html>

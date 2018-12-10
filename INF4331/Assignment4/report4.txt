@@ -1,0 +1,47 @@
+I have ran numpy and numba four times for different N values.
+Starting at N = 2 000 000 numpy is fater than numba but as
+N rises numba gets faster and faster compared to numpy.
+At N = 200 000 000 numba is about 10 times faster than numpy.
+
+Another advantage with numba compared to numpy is that it is
+very easy to convert python code to numba. In principle all you
+need is the decorator @jit and you are good to go. With numpy we
+have to rewrite the code to make the implementation
+
+
+### Results from simulation###
+
+N = 2 000 000
+Runtime for numpy integral: 0.043151
+Runtime for numpy integral: 0.036309
+Runtime for numpy integral: 0.038453
+Runtime for numpy integral: 0.036399
+
+Runtime for numba integral: 0.591448
+Runtime for numba integral: 0.179049
+Runtime for numba integral: 0.19523
+Runtime for numba integral: 0.18416
+
+
+N = 20 000 000
+Runtime for numpy integral: 0.489896
+Runtime for numpy integral: 0.454191
+Runtime for numpy integral: 0.447774
+Runtime for numpy integral: 0.449277
+
+
+Runtime for numba integral: 0.681123
+Runtime for numba integral: 0.361678
+Runtime for numba integral: 0.343572
+Runtime for numba integral: 0.335513
+
+N = 200 000 000:
+Runtime for numpy integral: 18.713021
+Runtime for numpy integral: 16.463504
+Runtime for numpy integral: 17.458149
+Runtime for numpy integral: 16.578165
+
+Runtime for numba integral: 2.25548
+Runtime for numba integral: 1.940921
+Runtime for numba integral: 2.008835
+Runtime for numba integral: 1.922444

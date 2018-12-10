@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module temperature_CO2_plotter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>temperature_CO2_plotter</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/Tuv/Documents/UiO/UiOUpstream/INF3331-kristtuv/Assignment6/programs/temperature_CO2_plotter.py">/Users/Tuv/Documents/UiO/UiOUpstream/INF3331-kristtuv/Assignment6/programs/temperature_CO2_plotter.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="pandas.html">pandas</a><br>
+</td><td width="25%" valign=top><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-plot_CO2"><strong>plot_CO2</strong></a>(start_year, end_year, y_axis_max=None, y_axis_min=None, show_plot=False)</dt><dd><tt>Plots&nbsp;the&nbsp;CO2&nbsp;in&nbsp;the&nbsp;atmosphere&nbsp;between&nbsp;1751&nbsp;and&nbsp;2012.<br>
+y_axis_max&nbsp;and&nbsp;y_axis_min&nbsp;are&nbsp;optional&nbsp;parameters&nbsp;to&nbsp;change&nbsp;the&nbsp;values<br>
+of&nbsp;the&nbsp;y-axis.<br>
+Show_plot&nbsp;=&nbsp;False&nbsp;is&nbsp;used&nbsp;for&nbsp;implementation&nbsp;in&nbsp;web&nbsp;application<br>
+&nbsp;<br>
+Example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#-plot_CO2">plot_CO2</a>(1756,&nbsp;1839,&nbsp;y_axis_max&nbsp;=&nbsp;None,&nbsp;y_axis_min&nbsp;=&nbsp;None,&nbsp;show_plot&nbsp;=&nbsp;True):</tt></dd></dl>
+ <dl><dt><a name="-plot_CO2_by_country"><strong>plot_CO2_by_country</strong></a>(upper_threshold, lower_threshold, start_year, end_year, show_plot=True)</dt><dd><tt>Plots&nbsp;CO2&nbsp;emissions&nbsp;by&nbsp;country&nbsp;&nbsp;in&nbsp;the&nbsp;year-interval&nbsp;given.<br>
+start_year&nbsp;and&nbsp;end_year&nbsp;must&nbsp;be&nbsp;between&nbsp;1960&nbsp;and&nbsp;2016.<br>
+Upper&nbsp;and&nbsp;lower&nbsp;threshold&nbsp;finds&nbsp;all&nbsp;the&nbsp;countries&nbsp;with&nbsp;emissions&nbsp;in&nbsp;this&nbsp;interval.<br>
+show_plot&nbsp;=&nbsp;False&nbsp;is&nbsp;used&nbsp;for&nbsp;web&nbsp;implementation.<br>
+&nbsp;<br>
+The&nbsp;countries&nbsp;on&nbsp;the&nbsp;x-axis&nbsp;will&nbsp;be&nbsp;given&nbsp;in&nbsp;country-code.&nbsp;F.eks&nbsp;USA<br>
+&nbsp;<br>
+Because&nbsp;the&nbsp;list&nbsp;of<br>
+countries&nbsp;is&nbsp;very&nbsp;comprehensive&nbsp;it&nbsp;is&nbsp;not&nbsp;recommended&nbsp;to&nbsp;plot&nbsp;more&nbsp;than&nbsp;a<br>
+couple&nbsp;of&nbsp;years&nbsp;at&nbsp;the&nbsp;time,&nbsp;if&nbsp;not&nbsp;the&nbsp;plot&nbsp;will&nbsp;be&nbsp;pretty&nbsp;much&nbsp;unreadable.<br>
+It&nbsp;is&nbsp;also&nbsp;recommended&nbsp;to&nbsp;not&nbsp;use&nbsp;to&nbsp;big&nbsp;of&nbsp;an&nbsp;interval&nbsp;for&nbsp;the&nbsp;upper-lower<br>
+threshold&nbsp;for&nbsp;the&nbsp;same&nbsp;reason.<br>
+&nbsp;<br>
+Example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#-plot_CO2_by_country">plot_CO2_by_country</a>(25,&nbsp;15,&nbsp;2000,&nbsp;2004,&nbsp;show_plot=True)</tt></dd></dl>
+ <dl><dt><a name="-plot_temperature"><strong>plot_temperature</strong></a>(month, start_year, end_year, y_axis_max=None, y_axis_min=None, show_plot=False)</dt><dd><tt>Plots&nbsp;the&nbsp;temperature&nbsp;of&nbsp;one&nbsp;month&nbsp;in&nbsp;year-interval&nbsp;given.<br>
+start_year&nbsp;and&nbsp;end_year&nbsp;must&nbsp;be&nbsp;between&nbsp;1816&nbsp;and&nbsp;2012.<br>
+Month&nbsp;must&nbsp;be&nbsp;a&nbsp;string&nbsp;with&nbsp;captial&nbsp;first&nbsp;letter.<br>
+y_axis_max&nbsp;and&nbsp;y_axis_min&nbsp;is&nbsp;optional&nbsp;parameters&nbsp;for&nbsp;adjusting&nbsp;the&nbsp;y-axis.<br>
+show_plot&nbsp;=&nbsp;False&nbsp;is&nbsp;used&nbsp;for&nbsp;web&nbsp;implementation<br>
+Example&nbsp;usage:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#-plot_temperature">plot_temperature</a>('January',&nbsp;1816,&nbsp;1849)")</tt></dd></dl>
+</td></tr></table>
+</body></html>

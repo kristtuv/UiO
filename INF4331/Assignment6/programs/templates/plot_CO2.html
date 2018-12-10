@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+  <!-- -->
+  <title> Make CO2 plots </title>
+  <link href="http://thomasf.github.io/solarized-css/solarized-dark.min.css" rel="stylesheet">
+</head>
+<body>
+  <h1> Plot CO2 </h1><br>
+  <form action="/CO2" method="POST">
+  Start Year<br>
+  <input type="text" name="StartYearCO2"</input><br>
+  End Year<br>
+  <input type="text" name="EndYearCO2"</input>
+  <br>
+  <br> Select maximum y-value <br>
+   <input type="text" name="YMaxCO2"</input><br>
+  <br> Select minimum y-value <br>
+   <input type="text" name="YMinCO2"</input><br>
+    <input type="submit" value="Submit"> <br>
+  </form>
+  <img src="data:image/png;base64,{{ CO2plot }}" width=100%>
+</body>
+</html>
